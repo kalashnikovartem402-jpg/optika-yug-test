@@ -76,11 +76,19 @@
     });
   }
 
+  var OPTOTYPE_OVERRIDES = {
+    'мужские': { word: 'МУЖСКАЯ', caption: 'коллекция' },
+    'женские': { word: 'ЖЕНСКАЯ', caption: 'коллекция' },
+    'контактные линзы': { word: 'ЛИНЗЫ', caption: 'контактные' }
+  };
+
   function optotypeParts(title) {
-    var words = String(title == null ? '' : title).trim().split(/\s+/).filter(Boolean);
-    var word = (words[0] || '').toUpperCase();
+    var raw = String(title == null ? '' : title).trim();
+    var ov = OPTOTYPE_OVERRIDES[raw.toLowerCase()];
+    var words = raw.split(/\s+/).filter(Boolean);
+    var word = ov ? ov.word : (words[0] || '').toUpperCase();
     var rows = [word.charAt(0), word.slice(1, 3), word.slice(3)].filter(Boolean);
-    return { rows: rows, caption: words.slice(1).join(' ').toLowerCase() || 'коллекция' };
+    return { rows: rows, caption: ov ? ov.caption : (words.slice(1).join(' ').toLowerCase() || 'коллекция') };
   }
 
   function optotypeCard(it, i) {
@@ -97,7 +105,7 @@
         '<span>№' + num + ' · D=' + diam + '</span><span>V=' + vis + '</span>' +
       '</div>' +
       '<div class="optotype-pyramid flex-1 min-h-0 flex flex-col items-center justify-center text-center font-black text-black" aria-hidden="true">' +
-        p.rows.map(function (r, k) { return '<span class="opt-row opt-r' + (k + 1) + '">' + esc(r) + '</span>'; }).join('') +
+        p.rows.map(function (r, k) { return '<span class="opt-row opt-r' + (k + 1) + (k === 2 && r.length > 5 ? ' opt-r3-long' : '') + '">' + esc(r) + '</span>'; }).join('') +
       '</div>' +
       '<div class="text-center text-[10px] sm:text-xs lg:text-sm tracking-widest text-black pt-1.5 pb-2 sm:pb-2.5 truncate" aria-hidden="true">' + esc(p.caption) + '</div>' +
       '<div class="h-px w-full bg-black" aria-hidden="true"></div>' +

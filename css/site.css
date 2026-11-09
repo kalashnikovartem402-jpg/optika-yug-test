@@ -63,13 +63,17 @@ input:focus, textarea:focus { outline: none; border-color: #0284C7 !important; b
 .opt-r1 { font-size: 2.6rem; }
 .opt-r2 { font-size: 1.7rem; }
 .opt-r3 { font-size: 1.1rem; }
+.opt-r3-long { font-size: 0.85rem; }
 @supports (width: 1cqw) {
   .opt-r1 { font-size: 21cqw; }
   .opt-r2 { font-size: 14cqw; }
   .opt-r3 { font-size: 9cqw; }
+  .opt-r3-long { font-size: 6.5cqw; }
 }
-.opt-arrow { transition: background-color .3s ease, color .3s ease, transform .4s cubic-bezier(0.22,1,0.36,1); }
-.optotype-card:hover .opt-arrow, .optotype-card:focus-visible .opt-arrow { background: #000; color: #fff; transform: translate(2px,-2px); }
+.opt-arrow { background: #fff; color: #000; transition: background-color .3s ease, color .3s ease, transform .4s cubic-bezier(0.22,1,0.36,1); }
+@media (hover: hover) and (pointer: fine) {
+  .optotype-card:hover .opt-arrow, .optotype-card:focus-visible .opt-arrow { background: #000; color: #fff; transform: translate(2px,-2px); }
+}
 @media (prefers-reduced-motion: reduce) {
   .optotype-card, .opt-arrow { transition: none; }
   .optotype-card:hover, .optotype-card:focus-visible { transform: none; }
