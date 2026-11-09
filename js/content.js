@@ -93,17 +93,15 @@
     var cta = String(it.linkText || 'Смотреть в ВК').toUpperCase();
     return '<a href="' + esc(link) + '"' + (external ? ' target="_blank" rel="noopener"' : '') + ' class="optotype-card group flex flex-col aspect-square bg-white p-3 sm:p-4 lg:p-3.5 xl:p-4 text-black">' +
       '<span class="sr-only">' + esc(it.title) + '</span>' +
-      '<div class="flex items-center justify-between font-mono text-[9px] sm:text-[11px] lg:text-[10px] xl:text-[11px] leading-none text-slate-500 pb-1.5" aria-hidden="true">' +
+      '<div class="flex items-center justify-between font-mono text-[9px] sm:text-[11px] lg:text-xs leading-none text-slate-500 pb-1.5" aria-hidden="true">' +
         '<span>№' + num + ' · D=' + diam + '</span><span>V=' + vis + '</span>' +
       '</div>' +
-      '<div class="h-px w-full bg-blue-700" aria-hidden="true"></div>' +
       '<div class="optotype-pyramid flex-1 min-h-0 flex flex-col items-center justify-center text-center font-black text-black" aria-hidden="true">' +
         p.rows.map(function (r, k) { return '<span class="opt-row opt-r' + (k + 1) + '">' + esc(r) + '</span>'; }).join('') +
       '</div>' +
-      '<div class="h-px w-3/5 mx-auto bg-red-900" aria-hidden="true"></div>' +
-      '<div class="text-center text-[10px] sm:text-xs lg:text-[11px] xl:text-xs tracking-widest text-black pt-1.5 pb-2 sm:pb-2.5 truncate" aria-hidden="true">' + esc(p.caption) + '</div>' +
+      '<div class="text-center text-[10px] sm:text-xs lg:text-sm tracking-widest text-black pt-1.5 pb-2 sm:pb-2.5 truncate" aria-hidden="true">' + esc(p.caption) + '</div>' +
       '<div class="h-px w-full bg-black" aria-hidden="true"></div>' +
-      '<div class="flex items-center justify-between gap-2 pt-2 font-mono text-[9px] sm:text-[11px] lg:text-[10px] xl:text-[11px] leading-none tracking-wider text-black" aria-hidden="true">' +
+      '<div class="flex items-center justify-between gap-2 pt-2 font-mono text-[9px] sm:text-[11px] lg:text-xs leading-none tracking-wider text-black" aria-hidden="true">' +
         '<span class="truncate">' + esc(cta) + '</span>' +
         '<span class="opt-arrow flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 border border-black flex items-center justify-center"><i data-lucide="arrow-up-right" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i></span>' +
       '</div>' +
