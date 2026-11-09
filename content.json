@@ -1,0 +1,112 @@
+{
+    "contacts": {
+        "phoneMain": "+7 (988) 403-64-42",
+        "phoneMaster": "+7 (995) 123-96-86",
+        "address": "г. Сочи, Курортный пр-т, д. 50",
+        "addressNote": "гостиница «Магнолия»",
+        "hours": "с 10:00 до 19:00, без выходных",
+        "about": "Премиальный салон оптики в Сочи. Изготовление очков за 1 день. Европейские бренды. Профессиональная проверка зрения.",
+        "vkLink": "https://vk.me/opticasouth",
+        "maxLink": "https://max.ru/"
+    },
+    "catalog": {
+        "title": "Каталог и услуги",
+        "subtitle": "Оправы, линзы, аксессуары",
+        "items": [
+            {
+                "title": "Мужские",
+                "label": "",
+                "image": "images/catalog_men.jpg",
+                "link": "https://vk.ru/market-211441673?ref_source=community_group_goods&screen=group&section=album_8&traffic_source=link",
+                "linkText": "Смотреть в ВК"
+            },
+            {
+                "title": "Женские",
+                "label": "",
+                "image": "images/catalog_women.jpg",
+                "link": "https://vk.ru/market-211441673?ref_source=community_group_goods&screen=group&section=album_7&traffic_source=link",
+                "linkText": "Смотреть в ВК"
+            },
+            {
+                "title": "Детские",
+                "label": "",
+                "image": "uploads/image-20261106-05e8fc4c832f69c7.jpg",
+                "link": "https://vk.ru/market-211441673?ref_source=community_group_goods&screen=group&section=album_9&traffic_source=link",
+                "linkText": "Смотреть в ВК"
+            },
+            {
+                "title": "Ремонт оправ",
+                "label": "",
+                "image": "images/catalog_repair.jpg",
+                "link": "https://vk.ru/opticasouth",
+                "linkText": "Смотреть в ВК"
+            },
+            {
+                "title": "Контактные линзы",
+                "label": "",
+                "image": "images/catalog_lenses.jpg",
+                "link": "https://vk.ru/market-211441673?screen=group&section=album_4",
+                "linkText": "Смотреть в ВК"
+            },
+            {
+                "title": "Аксессуары",
+                "label": "",
+                "image": "images/catalog_accessories.jpg",
+                "link": "https://vk.ru/market-211441673?screen=group&section=album_6",
+                "linkText": "Смотреть в ВК"
+            }
+        ]
+    },
+    "services": {
+        "title": "Что мы делаем",
+        "items": [
+            {
+                "icon": "eye",
+                "title": "Проверка зрения",
+                "text": "Профессиональная диагностика на современном оборудовании"
+            },
+            {
+                "icon": "zap",
+                "title": "Изготовление очков за 1 день",
+                "text": "Станки Essilor (Франция) — точность до 0.01 диоптрии"
+            },
+            {
+                "icon": "palette",
+                "title": "Окраска и нанесение покрытий на линзы",
+                "text": "Антибликовые, фотохромные и тонированные покрытия"
+            },
+            {
+                "icon": "wrench",
+                "title": "Ремонт и регулировка оправ",
+                "text": "Пайка, замена носоупоров, подгонка по форме лица"
+            },
+            {
+                "icon": "circle-dot",
+                "title": "Подбор контактных линз",
+                "text": "Мягкие и жёсткие линзы, однодневные и длительного ношения"
+            }
+        ]
+    },
+    "playlist": {
+        "title": "Видеообзоры и работы",
+        "author": "Оптика Юг • Сочи",
+        "videos": [
+            {
+                "id": "v2b610e85",
+                "title": "test",
+                "subtitle": "Оптика Юг • Сочи",
+                "duration": "0:09",
+                "thumb": "uploads/image-20261105-b4a7008619b58a36.jpg",
+                "src": "uploads/video-20261105-8c3c1c434495cc81.mp4"
+            },
+            {
+                "id": "veb140f87",
+                "title": "video 2026 11 05 11 42 22",
+                "subtitle": "Оптика Юг • Сочи",
+                "duration": "0:10",
+                "thumb": "uploads/image-20261105-37aa25c7d3071e53.jpg",
+                "src": "uploads/video-20261105-7f8a6f2bd70b6a70.mp4"
+            }
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+*.log
+admin/data/*
+!admin/data/.htaccess
+.vexp/
+optika_yug_website.zip
+*.tar.gz
+keys_id_rsa
+node_modules/

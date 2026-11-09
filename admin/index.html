@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; upgrade-insecure-requests;" />
+  <title>Админ-панель | Оптика Юг</title>
+  <link rel="icon" href="../images/logo_optika_yug.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="../js/lucide.min.js"></script>
+  <style>
+    body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: #0B1120; color: #E2E8F0; -webkit-font-smoothing: antialiased; }
+    .screen { display: none; }
+    .screen.active { display: flex; }
+    .field { width: 100%; background: #1E293B; border: 1px solid #334155; border-radius: 0.75rem; padding: 0.65rem 0.9rem; color: #fff; font-size: 0.95rem; transition: border-color .15s, box-shadow .15s; }
+    .field:focus { outline: none; border-color: #0EA5E9; box-shadow: 0 0 0 3px rgba(14,165,233,.18); }
+    .label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #94A3B8; margin-bottom: .35rem; }
+    .card { background: #0F172A; border: 1px solid #1E293B; border-radius: 1.25rem; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; font-weight: 700; border-radius: .75rem; padding: .6rem 1rem; font-size: .9rem; }
+    @media (prefers-reduced-motion: no-preference) {
+      .btn { transition: background .15s, opacity .15s, transform .1s; }
+      .btn:active { transform: scale(.98); }
+    }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-primary { background: #0369A1; color: #fff; } .btn-primary:hover:not(:disabled) { background: #0284C7; }
+    .btn-success { background: #047857; color: #fff; } .btn-success:hover:not(:disabled) { background: #059669; }
+    .btn-ghost { background: #1E293B; color: #E2E8F0; } .btn-ghost:hover:not(:disabled) { background: #334155; }
+    .btn-danger { background: #3B1420; color: #FDA4AF; } .btn-danger:hover:not(:disabled) { background: rgba(244,63,94,.22); }
+    .icon-btn { width: 2.1rem; height: 2.1rem; display: inline-flex; align-items: center; justify-content: center; border-radius: .6rem; color: #A8B5C7; transition: background .15s, color .15s; }
+    .icon-btn:hover:not(:disabled) { background: #1E293B; color: #fff; }
+    .icon-btn.danger:hover:not(:disabled) { background: #3B1420; color: #FDA4AF; }
+    .icon-btn:disabled { opacity: .3; cursor: not-allowed; }
+    .tab-link { display: flex; align-items: center; gap: .7rem; width: 100%; padding: .7rem .9rem; border-radius: .8rem; font-weight: 600; color: #A8B5C7; transition: background .15s, color .15s; }
+    .tab-link:hover { background: #1E293B; color: #fff; }
+    .tab-link.active { background: #0369A1; color: #fff; }
+    .dropzone { border: 2px dashed #334155; border-radius: 1rem; transition: border-color .15s, background .15s; }
+    .dropzone.drag { border-color: #0EA5E9; background: rgba(14,165,233,.08); }
+    .progress { height: 6px; background: #1E293B; border-radius: 999px; overflow: hidden; }
+    .progress > div { height: 100%; background: linear-gradient(90deg,#0284C7,#22D3EE); width: 0; transition: width .2s; }
+    .progress.indeterminate > div { width: 35%; }
+    @keyframes indet { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+    @media (prefers-reduced-motion: no-preference) {
+      .progress.indeterminate > div { animation: indet 1.1s ease-in-out infinite; }
+    }
+    @media (max-width: 1023px) {
+      #sidebar.mobile-open { display: flex; position: fixed; top: 4.5rem; left: 1rem; right: 1rem; z-index: 40; background: #0F172A; border: 1px solid #1E293B; border-radius: 1rem; padding: .75rem; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+    }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: no-preference) {
+      #toast-wrap > div { animation: toastIn .25s ease; }
+    }
+  </style>
+  <link rel="stylesheet" href="../css/tailwind.css?v=3" />
+</head>
+<body class="min-h-screen">
+
+  <div id="screen-loading" class="screen active min-h-screen items-center justify-center">
+    <div class="flex items-center gap-3 text-slate-400"><i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Загрузка админ-панели…</div>
+  </div>
+
+  <div id="screen-setup" class="screen min-h-screen items-center justify-center p-4">
+    <form id="setup-form" class="card w-full max-w-md p-8 flex flex-col gap-5 shadow-2xl">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 flex items-center justify-center text-emerald-400"><i data-lucide="shield-plus" class="w-6 h-6"></i></div>
+        <div>
+          <h1 class="text-xl font-extrabold text-white">Первый запуск</h1>
+          <p class="text-sm text-slate-400">Придумайте пароль администратора</p>
+        </div>
+      </div>
+      <div>
+        <label class="label" for="setup-token">Код установки (выдаёт разработчик)</label>
+        <input id="setup-token" type="password" class="field" autocomplete="off" required />
+      </div>
+      <div>
+        <label class="label" for="setup-pass">Новый пароль (минимум 10 символов)</label>
+        <input id="setup-pass" type="password" class="field" autocomplete="new-password" minlength="10" required />
+      </div>
+      <div>
+        <label class="label" for="setup-pass2">Повторите пароль</label>
+        <input id="setup-pass2" type="password" class="field" autocomplete="new-password" minlength="10" required />
+      </div>
+      <p class="form-error text-sm text-rose-400 hidden"></p>
+      <button type="submit" class="btn btn-success py-3">Сохранить пароль и войти</button>
+      <p class="text-xs text-slate-500 leading-relaxed">Пароль хранится на сервере только в зашифрованном виде (хеш). Восстановить его нельзя — при утере удалите файл <code class="text-slate-300">admin/data/config.php</code> на хостинге и задайте пароль заново.</p>
+    </form>
+  </div>
+
+  <div id="screen-login-php" class="screen min-h-screen items-center justify-center p-4">
+    <form id="login-php-form" class="card w-full max-w-md p-8 flex flex-col gap-5 shadow-2xl">
+      <div class="flex items-center gap-3">
+        <img src="../images/logo_optika_yug.png" alt="" class="h-11 w-11 bg-white rounded-xl p-1 object-contain" />
+        <div>
+          <h1 class="text-xl font-extrabold text-white">Админ-панель</h1>
+          <p class="text-sm text-slate-400">Оптика Юг</p>
+        </div>
+      </div>
+      <div>
+        <label class="label" for="login-pass">Пароль</label>
+        <input id="login-pass" type="password" class="field" autocomplete="current-password" required autofocus />
+      </div>
+      <p class="form-error text-sm text-rose-400 hidden"></p>
+      <button type="submit" class="btn btn-primary py-3"><i data-lucide="log-in" class="w-4 h-4"></i> Войти</button>
+      <p class="text-xs text-slate-500">После 5 неверных попыток вход блокируется на 15 минут.</p>
+    </form>
+  </div>
+
+  <div id="screen-login-gh" class="screen min-h-screen items-center justify-center p-4">
+    <form id="login-gh-form" class="card w-full max-w-lg p-8 flex flex-col gap-5 shadow-2xl">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-white"><i data-lucide="git-branch" class="w-6 h-6"></i></div>
+        <div>
+          <h1 class="text-xl font-extrabold text-white">Вход через GitHub</h1>
+          <p class="text-sm text-slate-400">Репозиторий: <span id="gh-repo-label" class="text-slate-200 font-semibold"></span></p>
+        </div>
+      </div>
+      <div>
+        <label class="label" for="gh-token">Персональный токен GitHub</label>
+        <input id="gh-token" type="password" class="field font-mono" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required />
+      </div>
+      <p class="form-error text-sm text-rose-400 hidden"></p>
+      <button type="submit" class="btn btn-primary py-3"><i data-lucide="log-in" class="w-4 h-4"></i> Войти</button>
+      <div class="grid sm:grid-cols-2 gap-2.5 pt-1">
+        <a href="https://github.com/settings/tokens/new?description=Optika+Yug+Admin&scopes=public_repo" target="_blank" rel="noopener" class="btn btn-ghost py-2.5 text-xs text-sky-400 border border-sky-500/30 hover:border-sky-400">
+          <i data-lucide="external-link" class="w-4 h-4"></i> Создать токен в 1 клик
+        </a>
+        <button type="button" id="demo-gh-btn" class="btn btn-ghost py-2.5 text-xs">
+          <i data-lucide="eye" class="w-4 h-4"></i> Открыть без токена
+        </button>
+      </div>
+      <p class="text-xs text-slate-400 leading-relaxed">
+        Нажмите <b>«Создать токен в 1 клик»</b> — откроется GitHub с уже проставленными галочками, останется только нажать зелёную кнопку <b>Generate token</b> внизу страницы и скопировать код.
+      </p>
+    </form>
+  </div>
+
+  <div id="screen-app" class="screen min-h-screen flex-col">
+    <header class="sticky top-0 z-30 bg-[#0B1120]/90 backdrop-blur border-b border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+        <button id="menu-toggle" class="icon-btn lg:hidden" aria-label="Меню"><i data-lucide="menu" class="w-5 h-5"></i></button>
+        <img src="../images/logo_optika_yug.png" alt="" class="h-9 w-9 bg-white rounded-lg p-0.5 object-contain hidden sm:block" />
+        <div class="min-w-0">
+          <div class="font-extrabold text-white leading-tight">Админ-панель</div>
+          <div class="text-xs text-slate-400 flex items-center gap-1.5"><span id="mode-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span id="mode-label">Сервер</span></div>
+        </div>
+        <div class="ml-auto flex items-center gap-2">
+          <span id="dirty-badge" class="hidden items-center gap-1.5 text-xs font-semibold text-amber-300 bg-amber-400/10 px-3 py-1.5 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span><span class="hidden sm:inline">Есть неопубликованные изменения</span><span class="sm:hidden">Не опубликовано</span></span>
+          <a href="../" target="_blank" rel="noopener" class="btn btn-ghost hidden md:inline-flex"><i data-lucide="external-link" class="w-4 h-4"></i> Сайт</a>
+          <button id="publish-btn" class="btn btn-success" disabled><i data-lucide="upload-cloud" class="w-4 h-4"></i> <span>Опубликовать</span></button>
+          <button id="logout-btn" class="icon-btn" title="Выйти"><i data-lucide="log-out" class="w-5 h-5"></i></button>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto w-full px-4 py-6 flex gap-6 flex-1">
+      <nav id="sidebar" class="hidden lg:flex flex-col gap-1 w-56 flex-shrink-0 lg:sticky lg:top-24 self-start">
+        <button class="tab-link active" data-tab="videos"><i data-lucide="play-square" class="w-5 h-5"></i> Видео</button>
+        <button class="tab-link" data-tab="catalog"><i data-lucide="layout-grid" class="w-5 h-5"></i> Каталог</button>
+        <button class="tab-link" data-tab="services"><i data-lucide="list-checks" class="w-5 h-5"></i> Услуги</button>
+        <button class="tab-link" data-tab="contacts"><i data-lucide="phone" class="w-5 h-5"></i> Контакты</button>
+        <button class="tab-link" data-tab="stats" id="tab-stats"><i data-lucide="bar-chart-3" class="w-5 h-5"></i> Статистика</button>
+        <button class="tab-link" data-tab="settings"><i data-lucide="settings" class="w-5 h-5"></i> Настройки</button>
+      </nav>
+      <main id="panel" class="flex-1 min-w-0 flex flex-col gap-6 pb-16"></main>
+    </div>
+  </div>
+
+  <div id="toast-wrap" class="fixed bottom-4 right-4 left-4 sm:left-auto z-50 flex flex-col gap-2 items-end"></div>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>
