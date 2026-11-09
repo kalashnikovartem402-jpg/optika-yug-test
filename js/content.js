@@ -76,39 +76,30 @@
     });
   }
 
-  var OPTO_ROWS = [
-    { d: 50.0, letters: 'Ш Б' },
-    { d: 25.0, letters: 'М Н К' },
-    { d: 16.7, letters: 'Ы М Б Ш' },
-    { d: 12.5, letters: 'Б Ы Н К М' }
-  ];
+  function optotypeParts(title) {
+    var words = String(title == null ? '' : title).trim().split(/\s+/).filter(Boolean);
+    var word = (words[0] || '').toUpperCase();
+    var rows = [word.charAt(0), word.slice(1, 3), word.slice(3)].filter(Boolean);
+    return { rows: rows, caption: words.slice(1).join(' ').toLowerCase() || 'коллекция' };
+  }
 
   function optotypeCard(it, i) {
     var link = safeLink(it.link);
     var external = /^https?:\/\//i.test(link);
+    var p = optotypeParts(it.title);
     var num = ('0' + (i + 1)).slice(-2);
     var diam = (50 + i * 2).toFixed(1);
     var vis = ((i + 1) / 10).toFixed(1);
-    var title = String(it.title || '').toUpperCase();
     var cta = String(it.linkText || 'Смотреть в ВК').toUpperCase();
-    var rows = OPTO_ROWS.map(function (r, k) {
-      var d = (r.d + i * 2).toFixed(1);
-      var v = (((i + 1) + k) / 10).toFixed(1);
-      return '<div class="opt-line">' +
-          '<span class="opt-side hidden sm:inline">D=' + d + '</span>' +
-          '<span class="opt-letters opt-l' + (k + 1) + '">' + esc(r.letters) + '</span>' +
-          '<span class="opt-side hidden sm:inline">V=' + v + '</span>' +
-        '</div>';
-    }).join('');
     return '<a href="' + esc(link) + '"' + (external ? ' target="_blank" rel="noopener"' : '') + ' class="optotype-card group flex flex-col aspect-square bg-white p-3 sm:p-4 lg:p-3.5 xl:p-4 text-black">' +
       '<span class="sr-only">' + esc(it.title) + '</span>' +
-      '<div class="flex items-center justify-between font-mono text-[9px] sm:text-[11px] lg:text-xs leading-none text-slate-500" aria-hidden="true">' +
+      '<div class="flex items-center justify-between font-mono text-[9px] sm:text-[11px] lg:text-xs leading-none text-slate-500 pb-1.5" aria-hidden="true">' +
         '<span>№' + num + ' · D=' + diam + '</span><span>V=' + vis + '</span>' +
       '</div>' +
-      '<div class="optotype-table flex-1 min-h-0 flex flex-col justify-evenly" aria-hidden="true">' +
-        rows +
+      '<div class="optotype-pyramid flex-1 min-h-0 flex flex-col items-center justify-center text-center font-black text-black" aria-hidden="true">' +
+        p.rows.map(function (r, k) { return '<span class="opt-row opt-r' + (k + 1) + '">' + esc(r) + '</span>'; }).join('') +
       '</div>' +
-      '<div class="text-center text-[10px] sm:text-xs lg:text-sm tracking-widest text-black pb-2 sm:pb-2.5 truncate" aria-hidden="true">' + esc(title) + '</div>' +
+      '<div class="text-center text-[10px] sm:text-xs lg:text-sm tracking-widest text-black pt-1.5 pb-2 sm:pb-2.5 truncate" aria-hidden="true">' + esc(p.caption) + '</div>' +
       '<div class="h-px w-full bg-black" aria-hidden="true"></div>' +
       '<div class="flex items-center justify-between gap-2 pt-2 font-mono text-[9px] sm:text-[11px] lg:text-xs leading-none tracking-wider text-black" aria-hidden="true">' +
         '<span class="truncate">' + esc(cta) + '</span>' +
