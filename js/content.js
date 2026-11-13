@@ -79,6 +79,7 @@
   var OPTOTYPE_OVERRIDES = {
     'мужские': { word: 'МУЖСКАЯ', caption: 'коллекция' },
     'женские': { word: 'ЖЕНСКАЯ', caption: 'коллекция' },
+    'детские': { word: 'ДЕТСКАЯ', caption: 'коллекция' },
     'контактные линзы': { word: 'ЛИНЗЫ', caption: 'контактные' }
   };
 
@@ -107,7 +108,7 @@
       '<div class="optotype-pyramid flex-1 min-h-0 flex flex-col items-center justify-center text-center font-black text-black" aria-hidden="true">' +
         p.rows.map(function (r, k) { return '<span class="opt-row opt-r' + (k + 1) + (k === 2 && r.length > 5 ? ' opt-r3-long' : '') + '">' + esc(r) + '</span>'; }).join('') +
       '</div>' +
-      '<div class="text-center text-[10px] sm:text-xs lg:text-sm tracking-widest text-black pt-1.5 pb-2 sm:pb-2.5 truncate" aria-hidden="true">' + esc(p.caption) + '</div>' +
+      '<div class="text-center text-xs sm:text-sm lg:text-base tracking-widest text-black pt-1.5 pb-3.5 sm:pb-4 truncate" aria-hidden="true">' + esc(p.caption) + '</div>' +
       '<div class="h-px w-full bg-black" aria-hidden="true"></div>' +
       '<div class="flex items-center justify-between gap-2 pt-2 font-mono text-[9px] sm:text-[11px] lg:text-xs leading-none tracking-wider text-black" aria-hidden="true">' +
         '<span class="truncate">' + esc(cta) + '</span>' +
